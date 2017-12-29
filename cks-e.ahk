@@ -28,50 +28,62 @@
 #InstallMouseHook
 #MaxHotKeysPerInterval 10000
 
-APP_VERSION := "0.3.0-alpha"
+programName := "CKS-E"
+APP_VERSION := "0.3.1-alpha"
 
 OutputIntervalBaseList := "0.2|0.3|0.4|0.5|0.75|1|1.5|2|3|4|5|10"
 KeypressIntervalBaseList := "0.1|0.2|0.3|0.4|0.5|0.6|0.7|0.8|0.9|1.0"
 
 
-Gui Add, CheckBox, vMouseEnabled gMouseToggle x24 y8 w102 h20, Listen to mouse
-Gui Add, CheckBox, vBlockOutput gBlockOutputToggle x208 y8 w135 h20, Block If In Window
-Gui Add, CheckBox, vKbdEnabled gKbdToggle x24 y32 w112 h20, Listen to keyboard
-Gui Add, CheckBox, vPhsEnabled gPhsToggle x24 y56 w116 h20, Listen to user input
-Gui Add, CheckBox, vJoypadEnabled gJoypadToggle x24 y80 w102 h20, Listen to joypad
-Gui Add, CheckBox, vMimic gMimicToggle x208 y32 w135 h20, Mirror Keys
-Gui Add, CheckBox, vSequenceEnabled x352 y8 w133 h20, Send In Sequence
-Gui Add, CheckBox, vKeypressEmulationEnabled gKeypressEmuToggle x352 y32 w133 h20, Emulate Key Down/Up
-Gui Add, Button, gRefreshList x16 y152 w94 h33, Refresh
-Gui Add, Text, x736 y112 w57 h20, Pause Key
-Gui Add, Button, vPauseButton gPauseListen x744 y152 w94 h33, Pause
-Gui Add, Edit, vPauseKey gPauseKeyChanged x800 y112 w33 h18, #p
-Gui Add, Text, x520 y40 w81 h20 Right, Output Interval
-Gui Add, Text, x608 y40 w3 h13 cRed Hidden vCBOutputIntervalLowError, !
-Gui Add, ComboBox, vCBOutputIntervalLow gIntervalsUpdated x616 y40 w54, %OutputIntervalBaseList%
-Gui Add, Text, x680 y40 w3 h13 cRed Hidden vCBOutputIntervalHighError, !
-Gui Add, ComboBox, vCBOutputIntervalHigh gIntervalsUpdated x688 y40 w56, %OutputIntervalBaseList%
-Gui Add, Text, x528 y8 w70 h20 Right, Keys to Send
-Gui Add, Edit, vKeys x616 y8 w215 h20, 1
-Gui Add, ListView, vProgramList gProgramList x16 y192 w822 h469 Checked SortDesc, Name|Class|ID
-Gui Add, Text, x512 y72 w89 h20 Right, Keypress Length
-Gui Add, Text, vCBKeypressLengthLowError x608 y72 w3 h13 cRed Hidden, !
-Gui Add, ComboBox, vCBKeypressLengthLow gIntervalsUpdated x616 y72 w55, %KeypressIntervalBaseList%
-Gui Add, Text, vCBKeypressLengthHighError x680 y72 w3 h13 cRed Hidden, !
-Gui Add, ComboBox, vCBKeypressLengthHigh gIntervalsUpdated x688 y72 w56, %KeypressIntervalBaseList%
-Gui Add, Edit, vServerPort gServerPortUpdated x424 y112 w72 h20, 29999
-Gui Add, Text, x424 y88 w61 h22 +0x200, Port
-Gui Add, CheckBox, vServerModeEnabled gServerModeUpdated x208 y72 w84 h23, Act As Server
-Gui Add, Button, vConnectText gConnectButton x208 y112 w83 h20, Connect
-Gui Add, Text, x320 y88 w80 h21 +0x200, Server IP
-Gui Add, Edit, vServerIP gServerIPUpdated x320 y112 w97 h20, %A_IPAddress1%
-Gui Add, Button, vApplyIntervals gApplyIntervals x752 y48 w80 h39 Disabled, Apply Intervals
-Gui Add, Text, vAppStatus x118 y160 w617 h22 +0x200 Center  +Border, Status Line
+Gui Margin, 10, 10
+Gui Add, CheckBox, xm ym w130 h20 vMouseEnabled gMouseToggle, Listen to mouse
+Gui Add, CheckBox, xp y+5 w130 h20 vKbdEnabled gKbdToggle, Listen to keyboard
+Gui Add, CheckBox, xp y+5 w130 h20 vPhsEnabled gPhsToggle, Listen to user input
+Gui Add, CheckBox, xp y+5 w130 h20 vJoypadEnabled gJoypadToggle, Listen to joypad
+
+Gui Add, CheckBox,  ym w130 h20 vBlockOutput gBlockOutputToggle, Block If In Window
+Gui Add, CheckBox,  y+5 w130 h20 vMimic gMimicToggle, Mirror Keys
+Gui Add, CheckBox,  y+5 w130 h20 vBlank1 hidden, Spacer 
+Gui Add, CheckBox,  y+5 w130 h20 vServerModeEnabled gServerModeUpdated, Act As Server
+Gui Add, Button,  y+3 w130 h21 vConnectText gConnectButton, Connect
+
+Gui Add, CheckBox,  ym w130 h20 vSequenceEnabled, Send In Sequence
+Gui Add, CheckBox,  y+5 w130 h20 vKeypressEmulationEnabled gKeypressEmuToggle, Emulate Key Down/Up
+Gui Add, CheckBox,  y+5 w130 h20 vBlank2 hidden, Spacer 
+Gui Add, Text,  y+8 w130 h20 +center, Server IP
+Gui Add, Edit,  y+0 w130 h21 vServerIP gServerIPUpdated +center, %A_IPAddress1%
+
+Gui Add, Text,  ym+3 w90 h20 +right, Keys to Send
+Gui Add, Text,  y+5 w90 h20 +right, Output Interval
+Gui Add, Text,  y+5 w90 h20 +right, Keypress Length
+Gui Add, Text,  y+5 w60 h20 +center, Port
+Gui Add, Edit,  y+0 w60 h21 vServerPort gServerPortUpdated +center, 29999
+
+Gui Add, Edit,  ym w130 h21 vKeys +0x200, 1
+Gui Add, ComboBox,  y+4 w60 vCBOutputIntervalLow gIntervalsUpdated, %OutputIntervalBaseList%
+Gui Add, Text, x+2 yp w3 h21 vCBOutputIntervalLowError cRed hidden, !
+Gui Add, ComboBox, xp-62 y+4 w60 vCBKeypressLengthLow gIntervalsUpdated, %KeypressIntervalBaseList%
+Gui Add, Text, x+2 yp w3 h21 vCBOutputIntervalHighError cRed hidden, !
+Gui Add, Text, xp-62 y+7 w60 h20 +center, Pause Key
+Gui Add, Edit, xp y+0 w60 h21 vPauseKey gPauseKeyChanged +0x201, #p
+
+Gui Add, ComboBox, x+10 yp-73 w60 vCBOutputIntervalHigh gIntervalsUpdated, %OutputIntervalBaseList%
+Gui Add, Text, x+2 yp w3 h21 vCBKeypressLengthLowError cRed hidden, !
+Gui Add, ComboBox, xp-62 y+4 w60 vCBKeypressLengthHigh gIntervalsUpdated, %KeypressIntervalBaseList%
+Gui Add, Text, x+2 yp w3 h21 vCBKeypressLengthHighError cRed hidden, !
+
+Gui Add, Button, xp-62 y+4 w61 h42 vApplyIntervals gApplyIntervals Disabled, Apply Intervals
+
+Gui Add, Button,  xm y+15 w120 h22 gRefreshList, Refresh
+Gui Add, Text, x+0 yp+1 w411 h20 vAppStatus +Center +Border +0x201, Status Line
+Gui Add, Button,  x+0 yp-1 w120 h22 vPauseButton gPauseListen, Pause
 
 
-Menu, FileMenu, Add, LoadProfile, LoadProfile
-Menu, FileMenu, Add, SaveProfile, SaveProfile
-Menu, HelpMenu, Add, Usage, HelpListen
+Gui, Add, ListView, xm y+10 w651 h400 vProgramList gProgramList Checked Sort, Name|Class|ID
+
+Menu, FileMenu, Add, Load Profile, LoadProfile
+Menu, FileMenu, Add, Save Profile, SaveProfile
+Menu, HelpMenu, Add, Usage, HelpListen	
 Menu, HelpMenu, Add, About, AboutBox
 Menu, MyMenuBar, Add, &File, :FileMenu
 Menu, MyMenuBar, Add, &Help, :HelpMenu
@@ -104,7 +116,7 @@ IsListening := False
 IsConnected := False
 IsConnecting := False
 clientSocket := -1
-windowName := "CKS-E"
+windowName = %programName% %APP_VERSION%
 
 Gui, Submit, NoHide
 Gui, Show,, %windowName%
