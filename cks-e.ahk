@@ -597,9 +597,9 @@ Refresh(idList) {
             insertList.Remove(win_id)
         }
     }
-    LV_ModifyCol(1,"Auto")
-    LV_ModifyCol(2,"Auto")
-    LV_ModifyCol(3,"Auto")
+    LV_ModifyCol(1,"400")
+    LV_ModifyCol(2,"150")
+    LV_ModifyCol(3,"AutoHdr")
 }
 
 sleepSpecial(CBOutputIntervalLow, CBOutputIntervalHigh, RandEnabled){
